@@ -26,8 +26,9 @@
         </section>
         <section class="elements">
             <ul class="elements__unordered-list">
-                <li class="element">
+                <!-- <li class="element">
                     <img class="element__image" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
+                    <button type="button" class="element__delete-button"></button>
                     <div class="element__group">
                         <h3 class="element__title">Карачаевск</h3>
                         <button type="button" class="element__logo"></button>
@@ -67,20 +68,48 @@
                         <h3 class="element__title">Карачаево-Черкесия</h3>
                         <button type="button" class="element__logo"></button>
                     </div>
-                </li>
+                </li> -->
             </ul>
         </section>
-        <div class="popup">
+        <div class="popup popup_profile">
             <div class="popup__form">
                 <h3 class="popup__title">Редактировать профиль</h3>
-                <form class="form" name="popup-form">
+                <form class="form_profile" name="popup-form">
                     <input type="text" value="" class="popup__field" id="input_full-name" name="full-name">
                     <input type="text" value="" class="popup__field" id="input_profesion" name="profesion">
-                    <button type="submit" class="popup__submit-button">Сохранить</button>
+                    <button type="submit" class="popup__submit-button submit_edit">Сохранить</button>
                 </form>
             </div>
-            <button type="button" class="popup__close-icon"></button>
+            <button type="button" class="popup__close-icon close-edit"></button>
         </div>
+        <div class="popup popup_place">
+            <div class="popup__form">
+                <h3 class="popup__title">Новое место</h3>
+                <form class="form_place" name="popup-form">
+                    <input type="text" value="Название" class="popup__field" id="input_place-name" name="place-name">
+                    <input type="text" value="Ссылка на картинку" class="popup__field" id="input_url" name="url">
+                    <button type="submit" class="popup__submit-button submit_place">Сохранить</button>
+                </form>
+            </div>
+            <button type="button" class="popup__close-icon close-place"></button>
+        </div>
+        <div class="popup-image">
+            <div class="popup-image__conteiner">
+              <button type="button" class="popup-image__close-button"></button>
+              <img class="popup-image__image" src="#" alt="#">
+              <p class="popup-image__title"></p>
+            </div>
+          </div>
+        <template id="template">
+            <li class="element">
+                <img class="element__image" src="#" alt="#">
+                <button type="button" class="element__delete-button"></button>
+                <div class="element__group">
+                    <h3 class="element__title"></h3>
+                    <button type="button" class="element__logo"></button>
+                </div>
+            </li>
+        </template>
     </main>
     <footer class="footer">
         <p class="footer__copyright">&COPY; 2021. Дмитриев Артём</p>
