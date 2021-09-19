@@ -74,9 +74,13 @@
         <div class="popup popup_profile">
             <div class="popup__form">
                 <h3 class="popup__title">Редактировать профиль</h3>
-                <form class="form-profile" name="popup-form">
-                    <input type="text" value="" class="popup__field" id="input_full-name" name="full-name">
-                    <input type="text" value="" class="popup__field" id="input_profesion" name="profesion">
+                <form class="form form-profile" name="popup-form" novalidate>
+                    <input type="text" value="" class="popup__filed" id="input_full-name" name="full-name" minlength="2"
+                    maxlength="40" autocomplete="off" required>
+                    <span class="error input_full-name-error"></span>
+                    <input type="text" value="" class="popup__filed" id="input_profesion" name="profesion" minlength="2"
+                    maxlength="200" autocomplete="off" required>
+                    <span class="error input_profesion-error"></span>
                     <button type="submit" class="popup__submit-button">Сохранить</button>
                 </form>
             </div>
@@ -85,9 +89,12 @@
         <div class="popup popup_place">
             <div class="popup__form">
                 <h3 class="popup__title">Новое место</h3>
-                <form class="form-place" name="popup-form">
-                    <input type="text" value="" placeholder="Название" class="popup__field" id="input_place-name" name="place-name">
-                    <input type="text" value="" placeholder="Ссылка на картинку" class="popup__field" id="input_url" name="url">
+                <form class="form form-place" name="popup-form" novalidate>
+                    <input type="text" value="" placeholder="Название" class="popup__filed" id="input_place-name" name="place-name"  minlength="2"
+                    maxlength="30" autocomplete="off" required>
+                    <span class="error input_place-name-error"></span>
+                    <input type="url" value="" placeholder="Ссылка на картинку" class="popup__filed" id="input_url" name="url" autocomplete="off" required>
+                    <span class="error input_url-error"></span>
                     <button type="submit" class="popup__submit-button">Сохранить</button>
                 </form>
             </div>
@@ -95,11 +102,11 @@
         </div>
         <div class="popup popup-image">
             <div class="popup-image__conteiner">
-              <button type="button" class="popup__close-icon popup-image__close-button"></button>
-              <img class="popup-image__image" src="#" alt="#">
-              <p class="popup-image__title"></p>
+                <button type="button" class="popup__close-icon popup-image__close-button"></button>
+                <img class="popup-image__image" src="#" alt="#">
+                <p class="popup-image__title"></p>
             </div>
-          </div>
+        </div>
         <template id="template">
             <li class="element">
                 <img class="element__image" src="#" alt="#">
@@ -115,5 +122,6 @@
         <p class="footer__copyright">&COPY; 2021. Дмитриев Артём</p>
     </footer>
     <script src="./script/script.js"></script>
+    <script src="./script/validate.js"></script>
 </body>
 </html>
