@@ -14,10 +14,10 @@ const popupImageButton = document.querySelector('.popup-image__close-button');
 const popupImageArt = document.querySelector('.popup-image__image');
 const elementsUnorderedList = document.querySelector('.elements__unordered-list');
 //Инпуты
-const editFullName = document.querySelector('#input_full-name');
-const editProfesion = document.querySelector('#input_profesion');
-const inputPlaceName = document.querySelector('#input_place-name');
-const inputUrl = document.querySelector('#input_url');
+const editFullName = document.querySelector('#input-full-name');
+const editProfesion = document.querySelector('#input-profesion');
+const inputPlaceName = document.querySelector('#input-place-name');
+const inputUrl = document.querySelector('#input-url');
 //Формы
 const formFullName = document.querySelector('.form-profile');
 const formNewPlace = document.querySelector('.form-place');
