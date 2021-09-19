@@ -1,16 +1,17 @@
-const allPopup = document.querySelectorAll(".popup");
+const allPopup = document.querySelectorAll('.popup');
+const errorMassage = document.querySelectorAll('.error');
 const closeEdit = document.querySelector('.close-edit');
-const closePlace = document.querySelector('.close-place')
+const closePlace = document.querySelector('.close-place');
 const edit = document.querySelector('.popup_profile');
-const place = document.querySelector('.popup_place')
+const place = document.querySelector('.popup_place');
 const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button')
+const addButton = document.querySelector('.profile__add-button');
 const profileFullName = document.querySelector('.profile__full-name');
 const profileProfesion = document.querySelector('.profile__profesion');
 const popupImage = document.querySelector('.popup-image');
 const popupImageTitle = document.querySelector('.popup-image__title');
 const popupImageButton = document.querySelector('.popup-image__close-button');
-const popupImageArt = document.querySelector('.popup-image__image')
+const popupImageArt = document.querySelector('.popup-image__image');
 const elementsUnorderedList = document.querySelector('.elements__unordered-list');
 //Инпуты
 const editFullName = document.querySelector('#input_full-name');
@@ -67,6 +68,7 @@ function openPopup(popup) {
 //Закрытие попапа
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    clearingErrorFields(popup); 
 }
 
 //Открытие попапа профиля
@@ -155,18 +157,29 @@ popupImageButton.addEventListener('click',() => {
 //esc нажатие
 const keydownEscape = (event) => {
     if (event.key == "Escape") {
-        const popupOpened = document.querySelector(".popup_opened"); 
+        const popupOpened = document.querySelector('.popup_opened'); 
         closePopup(popupOpened);
     }
 };
 //клик оверлей
 allPopup.forEach((element) => {
-    element.addEventListener("mousedown", (event) => {
+    element.addEventListener('mousedown', (event) => {
     if (
-        event.target.classList.contains("popup") ||
-        event.target.classList.contains("popup__close-icon")
+        event.target.classList.contains('popup') || event.target.classList.contains('popup__close-icon')
     ) {
         closePopup(element);
     }
     });
 });
+//При условие , что это не попап изображения , убираем элементы ошибки и очищаем форму
+const clearingErrorFields = (event) => {
+    if (!event.classList.contains('popup-image')) {
+    const inputElement = event.querySelectorAll('.popup__filed');
+    const formReset = event.querySelector('.form');
+    inputElement.forEach((data) => {
+        data.classList.remove(dataConfig.inputErrorClass);
+        event.querySelector(`.${data.id}-error`).classList.remove(dataConfig.errorClass);
+    });
+    formReset.reset();
+    }
+}

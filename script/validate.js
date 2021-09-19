@@ -9,10 +9,10 @@ const hasInvalidInput = (inputList) => {
 const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
     if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(inactiveButtonClass);
-    buttonElement.setAttribute("disabled", true);
+    buttonElement.setAttribute('disabled', true);
     } else {
     buttonElement.classList.remove(inactiveButtonClass);
-    buttonElement.removeAttribute("disabled"); 
+    buttonElement.removeAttribute('disabled'); 
     
     }
 };
@@ -78,7 +78,7 @@ const setEventListeners = (
     toggleButtonState(inputList, buttonElement, inactiveButtonClass);
 
     inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", () => {
+    inputElement.addEventListener('input', () => {
         isValid(
         formElement,
         inputElement,
@@ -94,7 +94,7 @@ const setEventListeners = (
 const enableValidation = (config) => {
     const formList = document.querySelectorAll(config.formSelector);
     formList.forEach((formElement) => {
-    formElement.addEventListener("submit", (event) => {
+    formElement.addEventListener('submit', (event) => {
         event.preventDefault();
     });
     setEventListeners(
@@ -109,15 +109,3 @@ const enableValidation = (config) => {
 };
   // Вызовем функцию
 enableValidation(dataConfig);
-//При условие , что это не попап изображения , убираем элементы ошибки и очищаем форму
-function clearingErrorFields(event) {
-    if (!event.classList.contains("popup-image")) {
-    const inputElement = event.querySelectorAll(".popup__filed");
-    const formReset = event.querySelector(".popup__form");
-    inputElement.forEach((data) => {
-        data.classList.remove(dataConfig.inputErrorClass);
-        event.querySelector(`.${data.id}-error`).classList.remove(dataConfig.errorClass);
-    });
-    formReset.reset();
-    }
-}
