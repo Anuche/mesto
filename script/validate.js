@@ -116,7 +116,7 @@ function clearingErrorFields(event) {
     const formReset = event.querySelector(".popup__form");
     inputElement.forEach((data) => {
         data.classList.remove(dataConfig.inputErrorClass);
-        evt.querySelector(`.${data.id}-error`).classList.remove(dataConfig.errorClass);
+        event.querySelector(`.${data.id}-error`).classList.remove(dataConfig.errorClass);
     });
     formReset.reset();
     }
