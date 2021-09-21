@@ -19,62 +19,19 @@
                         <h1 class="profile__full-name">Жак-Ив Кусто</h1>
                         <p class="profile__profesion">Исследователь океана</p>
                     </div>
-                    <button type="button" class="profile__edit-button"></button>
+                    <button type="button" class="profile__edit-button" aria-label="edit"></button>
                 </div>
             </div>
-            <button type="button" class="profile__add-button"></button>
+            <button type="button" class="profile__add-button" aria-label="add-images"></button>></button>
         </section>
         <section class="elements">
             <ul class="elements__unordered-list">
-                <!-- <li class="element">
-                    <img class="element__image" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
-                    <button type="button" class="element__delete-button"></button>
-                    <div class="element__group">
-                        <h3 class="element__title">Карачаевск</h3>
-                        <button type="button" class="element__logo"></button>
-                    </div>
-                </li>
-                <li class="element">
-                    <img class="element__image" src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Гора Эльбрус">
-                    <div class="element__group">
-                        <h3 class="element__title">Гора Эльбрус</h3>
-                        <button type="button" class="element__logo"></button>
-                    </div>
-                </li>
-                <li class="element">
-                    <img class="element__image" src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Домбай">
-                    <div class="element__group">
-                        <h3 class="element__title">Домбай</h3>
-                        <button type="button" class="element__logo"></button>
-                    </div>
-                </li>
-                <li class="element">
-                    <img class="element__image" src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Домбай">
-                    <div class="element__group">
-                        <h3 class="element__title">Домбай</h3>
-                        <button type="button" class="element__logo"></button>
-                    </div>
-                </li>
-                <li class="element">
-                    <img class="element__image" src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Гора Эльбрус">
-                    <div class="element__group">
-                        <h3 class="element__title">Гора Эльбрус</h3>
-                        <button type="button" class="element__logo"></button>
-                    </div>
-                </li>
-                <li class="element">
-                    <img class="element__image" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевo-Черкесия">
-                    <div class="element__group">
-                        <h3 class="element__title">Карачаево-Черкесия</h3>
-                        <button type="button" class="element__logo"></button>
-                    </div>
-                </li> -->
             </ul>
         </section>
-        <div class="popup popup_profile">
+        <div class="popup popup_type_profile">
             <div class="popup__form">
                 <h3 class="popup__title">Редактировать профиль</h3>
-                <form class="form form-profile" name="popup-form" novalidate>
+                <form class="form form-profile" name="popup-profile" novalidate>
                     <input type="text" value="" class="popup__filed" id="input-full-name" name="full-name" minlength="2"
                     maxlength="40" autocomplete="off" required>
                     <span class="error input-full-name-error"></span>
@@ -84,12 +41,12 @@
                     <button type="submit" class="popup__submit-button">Сохранить</button>
                 </form>
             </div>
-            <button type="button" class="popup__close-icon close-edit"></button>
+            <button type="button" class="popup__close-icon close-edit" aria-label="close"></button>
         </div>
-        <div class="popup popup_place">
+        <div class="popup popup_type_place">
             <div class="popup__form">
                 <h3 class="popup__title">Новое место</h3>
-                <form class="form form-place" name="popup-form" novalidate>
+                <form class="form form-place" name="popup-place" novalidate>
                     <input type="text" value="" placeholder="Название" class="popup__filed" id="input-place-name" name="place-name"  minlength="2"
                     maxlength="30" autocomplete="off" required>
                     <span class="error input-place-name-error"></span>
@@ -98,13 +55,13 @@
                     <button type="submit" class="popup__submit-button">Сохранить</button>
                 </form>
             </div>
-            <button type="button" class="popup__close-icon close-place"></button>
+            <button type="button" class="popup__close-icon close-place" aria-label="close"></button>
         </div>
-        <div class="popup popup-image">
-            <div class="popup-image__conteiner">
-                <button type="button" class="popup__close-icon popup-image__close-button"></button>
-                <img class="popup-image__image" src="#" alt="#">
-                <p class="popup-image__title"></p>
+        <div class="popup popup_type_image">
+            <div class="popup__conteiner">
+                <button type="button" class="popup__close-icon popup__close-icon_image" aria-label="close"></button>
+                <img class="popup__image" src="#" alt="#">
+                <p class="popup__title_image"></p>
             </div>
         </div>
         <template id="template">
@@ -121,7 +78,8 @@
     <footer class="footer">
         <p class="footer__copyright">&COPY; 2021. Дмитриев Артём</p>
     </footer>
-    <script src="./script/script.js"></script>
-    <script src="./script/validate.js"></script>
+    <script src="./scripts/script.js"></script>
+    <script src="./scripts/validate.js"></script>
+    <script src="./scripts/initial-сards.js"></script>
 </body>
 </html>
