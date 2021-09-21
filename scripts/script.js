@@ -147,7 +147,7 @@ allPopups.forEach((element) => {
 //При условие , что это не попап изображения , убираем элементы ошибки и очищаем форму
 const clearingErrorFields = (form, formConfig) => {
     formConfig = dataConfig;
-    if (!form.classList.contains('popup-image')) {
+    if (!form.classList.contains('popup_type_image')) {
     const inputElements = form.querySelectorAll(formConfig.inputSelector);
     const formReset = form.querySelector('.form');
     inputElements.forEach((data) => {
