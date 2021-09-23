@@ -37,7 +37,6 @@ const dataConfig = {
 function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener("keydown", closeByEsc);
-    clearingErrorFields(popup);
 }
 
 //Закрытие попапа
@@ -48,6 +47,7 @@ function closePopup(popup) {
 
 //Открытие попапа профиля
 const openProfileForm = () =>{
+    clearingErrorFields(edit);
     openPopup(edit);
     editFullName.value = profileFullName.textContent;
     editProfesion.value = profileProfesion.textContent;
@@ -63,22 +63,22 @@ const handleSubmitClick = (event) =>{
 
 //Сохранить для места
 const handleCardFormSubmit  = (event) =>{
-    event.preventDefault(); 
+    event.preventDefault();
     addElement(elementsUnorderedList, createElements({
         link: inputUrl.value,
         name: inputPlaceName.value
     }));
     formNewPlace.reset();
     closePopup(place);
-    const buttonElement = formNewPlace.querySelector('.popup__submit-button');
-    buttonElement.classList.add(dataConfig.inactiveButtonClass);
-    buttonElement.setAttribute("disabled", true);
+    const inputList = Array.from(place.querySelectorAll(dataConfig.inputSelector));
+    const buttonElement = place.querySelector(dataConfig.submitButtonSelector);
+    toggleButtonState (inputList, buttonElement, dataConfig.inactiveButtonClass);
 }
 
 
 //Лайки
 const handleLikeIcon = (event) => {
-    event.target.classList.toggle('element__logo_active')
+    event.target.classList.toggle('element__logo_active');
 }
 
 //Удаление
@@ -113,19 +113,20 @@ const addElement = (container, element) => {
 
 //Слушатели
 closePlace.addEventListener('click',() => {
-    closePopup(place)
+    closePopup(place);
 })
 closeEdit.addEventListener('click',() => {
-    closePopup(edit)
+    closePopup(edit);
 })
 editButton.addEventListener('click',openProfileForm)
 formFullName.addEventListener('submit',handleSubmitClick)
 formNewPlace.addEventListener('submit',handleCardFormSubmit)
 addButton.addEventListener('click',() => {
-    openPopup(place)
+    clearingErrorFields(place);
+    openPopup(place);
 })
 popupImageButton.addEventListener('click',() => {
-    closePopup(popupImage)
+    closePopup(popupImage);
 })
 //esc нажатие
 const closeByEsc = (event) => {
@@ -144,10 +145,9 @@ allPopups.forEach((element) => {
     }
     });
 });
-//При условие , что это не попап изображения , убираем элементы ошибки и очищаем форму
+//убираем элементы ошибки и очищаем форму
 const clearingErrorFields = (form, formConfig) => {
     formConfig = dataConfig;
-    if (!form.classList.contains('popup_type_image')) {
     const inputElements = form.querySelectorAll(formConfig.inputSelector);
     const formReset = form.querySelector('.form');
     inputElements.forEach((data) => {
@@ -155,5 +155,4 @@ const clearingErrorFields = (form, formConfig) => {
         form.querySelector(`.${data.id}-error`).classList.remove(formConfig.errorClass);
     });
     formReset.reset();
-    }
 }
