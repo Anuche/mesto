@@ -1,28 +1,5 @@
-const allPopups = document.querySelectorAll('.popup');
-const errorMassages = document.querySelectorAll('.error');
-const closeEdit = document.querySelector('.close-edit');
-const closePlace = document.querySelector('.close-place');
-const edit = document.querySelector('.popup_type_profile');
-const place = document.querySelector('.popup_type_place');
-const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button');
-const profileFullName = document.querySelector('.profile__full-name');
-const profileProfesion = document.querySelector('.profile__profesion');
-const popupImage = document.querySelector('.popup_type_image');
-const popupImageTitle = document.querySelector('.popup__title_image');
-const popupImageButton = document.querySelector('.popup__close-icon_image');
-const popupImageArt = document.querySelector('.popup__image');
-const elementsUnorderedList = document.querySelector('.elements__unordered-list');
-//Инпуты
-const editFullName = document.querySelector('#input-full-name');
-const editProfesion = document.querySelector('#input-profesion');
-const inputPlaceName = document.querySelector('#input-place-name');
-const inputUrl = document.querySelector('#input-url');
-//Формы
-const formFullName = document.querySelector('.form-profile');
-const formNewPlace = document.querySelector('.form-place');
-//Темплайет
-const template = document.querySelector('#template').content;
+import { Card } from "./Card.js"; //импортируем генератор карточек
+import { FormValidator, clearingErrorFields } from "./FormValidator.js"; //импортируем валидацию
 
 const dataConfig = {
     formSelector: '.popup__form',
@@ -32,22 +9,127 @@ const dataConfig = {
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__error_visible',
 };
+const dataTemplate = {
+    element:'.element',
+    elementImage:'.element__image',
+    elementDaleteButton:'.element__delete-button',
+    elementTitle:'.element__title',
+    elementLogo:'.element__logo',
+    elementLogoActive:'element__logo_active',
+};
+const dataNamingConfig ={
+    formFullName:'.form-profile',
+    formNewPlace:'.form-place',
+    editFullName:'#input-full-name',
+    editProfesion:'#input-profesion',
+    inputPlaceName:'#input-place-name',
+    inputUrl:'#input-url',
+    popups:'.popup',
+    errorMassages:'.error',
+    closeEdit:'.close-edit',
+    closePlace:'.close-place',
+    edit:'.popup_type_profile',
+    place:'.popup_type_place',
+    editButton:'.profile__edit-button',
+    addButton:'.profile__add-button',
+    profileFullName:'.profile__full-name',
+    profileProfesion:'.profile__profesion',
+    popupImage:'.popup_type_image',
+    popupImageTitle:'.popup__title_image',
+    popupImageButton:'.popup__close-icon_image',
+    popupImageArt:'.popup__image',
+    elementsUnorderedList:'.elements__unordered-list',
+    popup:'popup',
+    popupCloseIcon:'popup__close-icon',
+    openPopup: 'popup_opened',
+    elementTamplate:'#template'
+};
+const submitButtonSelector = document.querySelector(dataConfig.submitButtonSelector);
+const allPopups = document.querySelectorAll(dataNamingConfig.popups);
+const popupForms = document.querySelectorAll(dataConfig.formSelector);
+const closeEdit = document.querySelector(dataNamingConfig.closeEdit);
+const closePlace = document.querySelector(dataNamingConfig.closePlace);
+const edit = document.querySelector(dataNamingConfig.edit);
+const place = document.querySelector(dataNamingConfig.place);
+const editButton = document.querySelector(dataNamingConfig.editButton);
+const addButton = document.querySelector(dataNamingConfig.addButton);
+const profileFullName = document.querySelector(dataNamingConfig.profileFullName);
+const profileProfesion = document.querySelector(dataNamingConfig.profileProfesion);
+const popupImage = document.querySelector(dataNamingConfig.popupImage);
+const popupImageTitle = document.querySelector(dataNamingConfig.popupImageTitle);
+const popupImageButton = document.querySelector(dataNamingConfig.popupImageButton);
+const popupImageArt = document.querySelector(dataNamingConfig.popupImageArt);
+const elementsUnorderedList = document.querySelector(dataNamingConfig.elementsUnorderedList);
+//Инпуты
+const editFullName = document.querySelector(dataNamingConfig.editFullName);
+const editProfesion = document.querySelector(dataNamingConfig.editProfesion);
+const inputPlaceName = document.querySelector(dataNamingConfig.inputPlaceName);
+const inputUrl = document.querySelector(dataNamingConfig.inputUrl);
+//Формы
+const formFullName = document.querySelector(dataNamingConfig.formFullName);
+const formNewPlace = document.querySelector(dataNamingConfig.formNewPlace);
+//Темплайет
+const template = document.querySelector(dataNamingConfig.elementTamplate).content;
+//Карточки
+const initialCards = [
+    {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+];
+//Добавление карточки в список
+const addElement = (container, element) => { 
+    container.prepend(element);
+};
+
+//Создание и добавление карточек
+initialCards.forEach((element) => {
+    const card = new Card(element, template , handleImageClick , dataTemplate);
+    const cardElement = card.createElements();
+    addElement(elementsUnorderedList, cardElement);
+});
+
+//Перебор форм на валидность
+popupForms.forEach((formElement) => {
+    const validForm = new FormValidator(dataConfig, formElement);
+    validForm.enableValidation();
+});
 
 //Открытие попапа
 function openPopup(popup) {
-    popup.classList.add('popup_opened');
+    popup.classList.add(dataNamingConfig.openPopup);
     document.addEventListener("keydown", closeByEsc);
 }
 
 //Закрытие попапа
 function closePopup(popup) {
-    popup.classList.remove('popup_opened');
+    popup.classList.remove(dataNamingConfig.openPopup);
     document.removeEventListener("keydown", closeByEsc);
 }
 
 //Открытие попапа профиля
 const openProfileForm = () =>{
-    clearingErrorFields(edit);
+    clearingErrorFields(edit, dataConfig);
     openPopup(edit);
     editFullName.value = profileFullName.textContent;
     editProfesion.value = profileProfesion.textContent;
@@ -61,55 +143,30 @@ const handleSubmitClick = (event) =>{
     closePopup(edit);
 }
 
+function handleImageClick(name, link) {
+    popupImageArt .src = link;
+    popupImageTitle.textContent = name;
+    popupImageArt .alt = name;
+
+    openPopup(popupImage);
+}
 //Сохранить для места
 const handleCardFormSubmit  = (event) =>{
     event.preventDefault();
-    addElement(elementsUnorderedList, createElements({
+    const element = {
         link: inputUrl.value,
         name: inputPlaceName.value
-    }));
+    };
+    const card = new Card(element, template , handleImageClick , dataTemplate);
+    const cardElement = card.createElements();
+    addElement(elementsUnorderedList, cardElement);
+
     formNewPlace.reset();
+    submitButtonSelector.classList.add(dataConfig.inactiveButtonClass);
+    submitButtonSelector.setAttribute('disabled', true);
     closePopup(place);
-    const inputList = Array.from(place.querySelectorAll(dataConfig.inputSelector));
-    const buttonElement = place.querySelector(dataConfig.submitButtonSelector);
-    toggleButtonState (inputList, buttonElement, dataConfig.inactiveButtonClass);
 }
 
-
-//Лайки
-const handleLikeIcon = (event) => {
-    event.target.classList.toggle('element__logo_active');
-}
-
-//Удаление
-const handleDeleteCard = (event) =>{
-    event.target.closest('.element').remove();
-}
-
-//Создание карточки
-const createElements = (element) => {
-    const templatePlace = template.querySelector('.element').cloneNode(true);
-    const popupOpenButton = templatePlace.querySelector('.element__image');
-    templatePlace.querySelector('.element__image').src = element.link;
-    templatePlace.querySelector('.element__image').alt = element.name;
-    templatePlace.querySelector('.element__title').textContent = element.name;
-    templatePlace.querySelector('.element__delete-button').addEventListener('click', handleDeleteCard);
-    templatePlace.querySelector('.element__logo').addEventListener('click', handleLikeIcon);
-
-     //Слушатель клик и присваивающий попапу-изображения - атрибуты 
-    popupOpenButton.addEventListener('click', () => { 
-        popupImageArt.src = element.link;
-        popupImageArt.alt = element.name;
-        popupImageTitle.textContent = element.name;
-        openPopup(popupImage); 
-    });
-    return templatePlace;
-};
-
-//Добавление карточки в список
-const addElement = (container, element) => { 
-    container.prepend(element);
-};
 
 //Слушатели
 closePlace.addEventListener('click',() => {
@@ -122,7 +179,7 @@ editButton.addEventListener('click',openProfileForm)
 formFullName.addEventListener('submit',handleSubmitClick)
 formNewPlace.addEventListener('submit',handleCardFormSubmit)
 addButton.addEventListener('click',() => {
-    clearingErrorFields(place);
+    clearingErrorFields(place,dataConfig);
     openPopup(place);
 })
 popupImageButton.addEventListener('click',() => {
@@ -131,7 +188,7 @@ popupImageButton.addEventListener('click',() => {
 //esc нажатие
 const closeByEsc = (event) => {
     if (event.key == "Escape") {
-        const popupOpened = document.querySelector('.popup_opened'); 
+        const popupOpened = document.querySelector(`.${dataNamingConfig.openPopup}`); 
         closePopup(popupOpened);
     }
 };
@@ -139,20 +196,9 @@ const closeByEsc = (event) => {
 allPopups.forEach((element) => {
     element.addEventListener('mousedown', (event) => {
     if (
-        event.target.classList.contains('popup') || event.target.classList.contains('popup__close-icon')
+        event.target.classList.contains(dataNamingConfig.popup) || event.target.classList.contains(dataNamingConfig.popupCloseIcon)
     ) {
         closePopup(element);
     }
     });
 });
-//убираем элементы ошибки и очищаем форму
-const clearingErrorFields = (form, formConfig) => {
-    formConfig = dataConfig;
-    const inputElements = form.querySelectorAll(formConfig.inputSelector);
-    const formReset = form.querySelector('.form');
-    inputElements.forEach((data) => {
-        data.classList.remove(formConfig.inputErrorClass);
-        form.querySelector(`.${data.id}-error`).classList.remove(formConfig.errorClass);
-    });
-    formReset.reset();
-}
