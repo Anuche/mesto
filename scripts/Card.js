@@ -9,7 +9,7 @@ export class Card {
     this._elementDaleteButton = dataTemplate.elementDaleteButton;
     this._elementTitle = dataTemplate.elementTitle;
     this._elementLogo = dataTemplate.elementLogo;
-    this._elementLogoActive = dataTemplate.elementLogoActive
+    this._elementLogoActive = dataTemplate.elementLogoActive;
 
     this._handleImageClick = handleImageClick;    
     }
@@ -55,8 +55,9 @@ export class Card {
     createElements() {
 
     this._elements = this._getTemplate();
-    this._elements.querySelector(this._elementImage).src = this._link;
-    this._elements.querySelector(this._elementImage).alt = this._name;
+    this._cardImage = this._elements.querySelector(this._elementImage);
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
     this._elements.querySelector(this._elementTitle).textContent = this._name;
     this._setEventListeners();
 

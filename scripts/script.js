@@ -1,5 +1,5 @@
 import { Card } from "./Card.js"; //импортируем генератор карточек
-import { FormValidator, clearingErrorFields } from "./FormValidator.js"; //импортируем валидацию
+import { FormValidator } from "./FormValidator.js"; //импортируем валидацию
 
 const dataConfig = {
     formSelector: '.popup__form',
@@ -44,7 +44,6 @@ const dataNamingConfig ={
     openPopup: 'popup_opened',
     elementTamplate:'#template'
 };
-const submitButtonSelector = document.querySelector(dataConfig.submitButtonSelector);
 const allPopups = document.querySelectorAll(dataNamingConfig.popups);
 const popupForms = document.querySelectorAll(dataConfig.formSelector);
 const closeEdit = document.querySelector(dataNamingConfig.closeEdit);
@@ -97,40 +96,63 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
+
+//Создание карточки
+const createCard = (element) => {    
+    const card = new Card(element, template , handleImageClick , dataTemplate);
+    const cardElement = card.createElements();
+    return cardElement;
+}
+
+//Валидность формы
+const createValidForm = (formElement) => {
+    const validForm = new FormValidator(dataConfig, formElement);
+    return validForm;
+}
+
+//Очистка
+const  resetValidForm = () => {
+    popupForms.forEach((formElement) => {
+        const validForm = createValidForm(formElement);
+        validForm.resetValidation();
+    });
+};
+
 //Добавление карточки в список
 const addElement = (container, element) => { 
     container.prepend(element);
 };
 
-//Создание и добавление карточек
+//Добавление карточек
 initialCards.forEach((element) => {
-    const card = new Card(element, template , handleImageClick , dataTemplate);
-    const cardElement = card.createElements();
-    addElement(elementsUnorderedList, cardElement);
+    addElement(elementsUnorderedList, createCard(element));
 });
 
-//Перебор форм на валидность
-popupForms.forEach((formElement) => {
-    const validForm = new FormValidator(dataConfig, formElement);
-    validForm.enableValidation();
-});
+// Валидация
+const validation = () => {
+    popupForms.forEach((formElement) => {
+        const validForm = createValidForm(formElement)
+        validForm.enableValidation();
+    });
+}
 
 //Открытие попапа
-function openPopup(popup) {
+const  openPopup = (popup) => {
+    resetValidForm();
     popup.classList.add(dataNamingConfig.openPopup);
     document.addEventListener("keydown", closeByEsc);
 }
 
 //Закрытие попапа
-function closePopup(popup) {
+const  closePopup = (popup) => {
     popup.classList.remove(dataNamingConfig.openPopup);
     document.removeEventListener("keydown", closeByEsc);
 }
 
 //Открытие попапа профиля
 const openProfileForm = () =>{
-    clearingErrorFields(edit, dataConfig);
     openPopup(edit);
+    validation();
     editFullName.value = profileFullName.textContent;
     editProfesion.value = profileProfesion.textContent;
 }
@@ -141,6 +163,7 @@ const handleSubmitClick = (event) =>{
     profileFullName.textContent = editFullName.value;
     profileProfesion.textContent = editProfesion.value;
     closePopup(edit);
+    formFullName.reset();
 }
 
 function handleImageClick(name, link) {
@@ -150,6 +173,7 @@ function handleImageClick(name, link) {
 
     openPopup(popupImage);
 }
+
 //Сохранить для места
 const handleCardFormSubmit  = (event) =>{
     event.preventDefault();
@@ -157,16 +181,10 @@ const handleCardFormSubmit  = (event) =>{
         link: inputUrl.value,
         name: inputPlaceName.value
     };
-    const card = new Card(element, template , handleImageClick , dataTemplate);
-    const cardElement = card.createElements();
-    addElement(elementsUnorderedList, cardElement);
-
+    addElement(elementsUnorderedList, createCard(element));
     formNewPlace.reset();
-    submitButtonSelector.classList.add(dataConfig.inactiveButtonClass);
-    submitButtonSelector.setAttribute('disabled', true);
     closePopup(place);
 }
-
 
 //Слушатели
 closePlace.addEventListener('click',() => {
@@ -179,12 +197,13 @@ editButton.addEventListener('click',openProfileForm)
 formFullName.addEventListener('submit',handleSubmitClick)
 formNewPlace.addEventListener('submit',handleCardFormSubmit)
 addButton.addEventListener('click',() => {
-    clearingErrorFields(place,dataConfig);
     openPopup(place);
+    validation();
 })
 popupImageButton.addEventListener('click',() => {
     closePopup(popupImage);
 })
+
 //esc нажатие
 const closeByEsc = (event) => {
     if (event.key == "Escape") {
@@ -192,6 +211,7 @@ const closeByEsc = (event) => {
         closePopup(popupOpened);
     }
 };
+
 //клик оверлей
 allPopups.forEach((element) => {
     element.addEventListener('mousedown', (event) => {

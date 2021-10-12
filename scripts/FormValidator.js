@@ -7,23 +7,30 @@ export class FormValidator {
     this._inputErrorClass = dataConfig.inputErrorClass;
     this._errorClass = dataConfig.errorClass;
     this._formElement = formElement;
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
     }
 
+    _clearingForm(){
+        const formReset = this._formElement.querySelector('.form');
+        formReset.reset();
+    };
+
     //Перебор на валидность
-    _hasInvalidInput = (inputList) => {
-        return inputList.some((inputElement) => {
+    _hasInvalidInput = () => {
+        return this._inputList.some((inputElement) => {
         return !inputElement.validity.valid;
         });
     };
 
     //Состояние кнопки
-    _toggleButtonState = (inputList, buttonElement) => {
-        if (this._hasInvalidInput(inputList)) {
-        buttonElement.classList.add(this._inactiveButtonClass);
-        buttonElement.setAttribute('disabled', true);
+    _toggleButtonState = () => {
+        if (this._hasInvalidInput(this._inputList)) {
+            this._buttonElement.classList.add(this._inactiveButtonClass);
+            this._buttonElement.setAttribute('disabled', true);
         } else {
-        buttonElement.classList.remove(this._inactiveButtonClass);
-        buttonElement.removeAttribute('disabled'); 
+            this._buttonElement.classList.remove(this._inactiveButtonClass);
+            this._buttonElement.removeAttribute('disabled'); 
         }
     };
 
@@ -45,9 +52,7 @@ export class FormValidator {
     };
 
     //Проверка валидности
-    _isValid = (
-        inputElement,
-    ) => {
+    _isValid = (inputElement,) => {
         if (!inputElement.validity.valid) {
         this._showInputError(
             inputElement,
@@ -60,14 +65,12 @@ export class FormValidator {
 
     //Создаем массив, который после проверки на валидность задаст состояние конкретной кнопке и добавляем слушатель ввода
     _setEventListeners = () => {
-        const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-        const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState(this._inputList, this._buttonElement);
     
-        inputList.forEach((inputElement) => {
+        this._inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
             this._isValid(inputElement);
-            this._toggleButtonState(inputList, buttonElement,);
+            this._toggleButtonState(this._inputList, this._buttonElement,);
         });
         });
     };
@@ -78,15 +81,12 @@ export class FormValidator {
         });
         this._setEventListeners();
     };
-    
-};
+    resetValidation() {        
+        this._toggleButtonState(this._inputList, this._buttonElement);
+        this._inputList.forEach((inputElement) => {
+            this._hideInputError(inputElement)
+        });
+        this._clearingForm()
+    };
 
-export function clearingErrorFields(form, formConfig){
-    const inputElements = form.querySelectorAll(formConfig.inputSelector);
-    const formReset = form.querySelector('.form');
-    inputElements.forEach((dataConfig) => {
-        dataConfig.classList.remove(formConfig.inputErrorClass);
-        form.querySelector(`.${dataConfig.id}-error`).classList.remove(formConfig.errorClass);
-    });
-    formReset.reset();
 };
