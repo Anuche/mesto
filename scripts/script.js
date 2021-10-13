@@ -45,7 +45,6 @@ const dataNamingConfig ={
     elementTamplate:'#template'
 };
 const allPopups = document.querySelectorAll(dataNamingConfig.popups);
-const popupForms = document.querySelectorAll(dataConfig.formSelector);
 const edit = document.querySelector(dataNamingConfig.edit);
 const place = document.querySelector(dataNamingConfig.place);
 const editButton = document.querySelector(dataNamingConfig.editButton);
