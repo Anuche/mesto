@@ -11,6 +11,7 @@ export class FormValidator {
     this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
     }
 
+    //Очистка формы
     _clearingForm(){
         const formReset = this._formElement.querySelector('.form');
         formReset.reset();
@@ -65,12 +66,12 @@ export class FormValidator {
 
     //Создаем массив, который после проверки на валидность задаст состояние конкретной кнопке и добавляем слушатель ввода
     _setEventListeners = () => {
-        this._toggleButtonState(this._inputList, this._buttonElement);
+        this._toggleButtonState();
     
         this._inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
             this._isValid(inputElement);
-            this._toggleButtonState(this._inputList, this._buttonElement,);
+            this._toggleButtonState();
         });
         });
     };
@@ -82,11 +83,11 @@ export class FormValidator {
         this._setEventListeners();
     };
     resetValidation() {        
-        this._toggleButtonState(this._inputList, this._buttonElement);
         this._inputList.forEach((inputElement) => {
             this._hideInputError(inputElement)
         });
         this._clearingForm()
+        this._toggleButtonState();
     };
 
 };

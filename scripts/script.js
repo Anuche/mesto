@@ -46,8 +46,6 @@ const dataNamingConfig ={
 };
 const allPopups = document.querySelectorAll(dataNamingConfig.popups);
 const popupForms = document.querySelectorAll(dataConfig.formSelector);
-const closeEdit = document.querySelector(dataNamingConfig.closeEdit);
-const closePlace = document.querySelector(dataNamingConfig.closePlace);
 const edit = document.querySelector(dataNamingConfig.edit);
 const place = document.querySelector(dataNamingConfig.place);
 const editButton = document.querySelector(dataNamingConfig.editButton);
@@ -56,7 +54,6 @@ const profileFullName = document.querySelector(dataNamingConfig.profileFullName)
 const profileProfesion = document.querySelector(dataNamingConfig.profileProfesion);
 const popupImage = document.querySelector(dataNamingConfig.popupImage);
 const popupImageTitle = document.querySelector(dataNamingConfig.popupImageTitle);
-const popupImageButton = document.querySelector(dataNamingConfig.popupImageButton);
 const popupImageArt = document.querySelector(dataNamingConfig.popupImageArt);
 const elementsUnorderedList = document.querySelector(dataNamingConfig.elementsUnorderedList);
 //Инпуты
@@ -69,6 +66,9 @@ const formFullName = document.querySelector(dataNamingConfig.formFullName);
 const formNewPlace = document.querySelector(dataNamingConfig.formNewPlace);
 //Темплайет
 const template = document.querySelector(dataNamingConfig.elementTamplate).content;
+
+const validFormPlace = new FormValidator(dataConfig, place);
+const validFormEdit = new FormValidator(dataConfig, edit);
 //Карточки
 const initialCards = [
     {
@@ -104,19 +104,9 @@ const createCard = (element) => {
     return cardElement;
 }
 
-//Валидность формы
-const createValidForm = (formElement) => {
-    const validForm = new FormValidator(dataConfig, formElement);
-    return validForm;
-}
-
-//Очистка
-const  resetValidForm = () => {
-    popupForms.forEach((formElement) => {
-        const validForm = createValidForm(formElement);
-        validForm.resetValidation();
-    });
-};
+//Включение валидации
+validFormPlace.enableValidation();
+validFormEdit.enableValidation();
 
 //Добавление карточки в список
 const addElement = (container, element) => { 
@@ -128,17 +118,8 @@ initialCards.forEach((element) => {
     addElement(elementsUnorderedList, createCard(element));
 });
 
-// Валидация
-const validation = () => {
-    popupForms.forEach((formElement) => {
-        const validForm = createValidForm(formElement)
-        validForm.enableValidation();
-    });
-}
-
 //Открытие попапа
 const  openPopup = (popup) => {
-    resetValidForm();
     popup.classList.add(dataNamingConfig.openPopup);
     document.addEventListener("keydown", closeByEsc);
 }
@@ -152,10 +133,11 @@ const  closePopup = (popup) => {
 //Открытие попапа профиля
 const openProfileForm = () =>{
     openPopup(edit);
-    validation();
+    validFormEdit.resetValidation();
     editFullName.value = profileFullName.textContent;
     editProfesion.value = profileProfesion.textContent;
 }
+
 
 //Сохранить для профиля
 const handleSubmitClick = (event) =>{
@@ -186,22 +168,12 @@ const handleCardFormSubmit  = (event) =>{
     closePopup(place);
 }
 
-//Слушатели
-closePlace.addEventListener('click',() => {
-    closePopup(place);
-})
-closeEdit.addEventListener('click',() => {
-    closePopup(edit);
-})
 editButton.addEventListener('click',openProfileForm)
 formFullName.addEventListener('submit',handleSubmitClick)
 formNewPlace.addEventListener('submit',handleCardFormSubmit)
 addButton.addEventListener('click',() => {
+    validFormPlace.resetValidation();
     openPopup(place);
-    validation();
-})
-popupImageButton.addEventListener('click',() => {
-    closePopup(popupImage);
 })
 
 //esc нажатие
