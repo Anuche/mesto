@@ -1,0 +1,24 @@
+.popup__close-icon{
+    width: 32px;
+    height: 410px;
+    background-image:url(../../../images/Close-Icon.svg);
+    background-repeat:no-repeat;
+    align-self: flex-start;
+    margin: auto 0;
+    cursor: pointer;
+    background-color: transparent;
+    border:0;
+}
+.popup__close-icon:hover{
+    opacity: 0.6;
+}
+@media screen and (max-width:600px) { 
+    .popup__close-icon{    
+        margin: auto auto 0;
+        align-self: flex-end;
+        width: 282px;
+        height: 20px;
+        background-position:right;
+        background-image:url(../../../images/Close-Icon-mini.svg);
+    }
+}

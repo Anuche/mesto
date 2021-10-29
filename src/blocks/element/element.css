@@ -1,0 +1,8 @@
+.element{
+    position: relative;
+    height: 100%;
+    border-radius: 10px;
+    list-style-type: none;
+    overflow:hidden;
+    background-color:#fff;
+}
