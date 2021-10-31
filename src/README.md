@@ -2,10 +2,11 @@
 ### Профиль с личной информацией , и коллекцией фотографий.
 
 ### Использованные технологии
-* JavaScript  
-* html  
-* css  
+* JavaScript (ES6) 
+* HTML5 
+* CSS3
 * БЭМ
+* Webpack
 
 #### https://anuche.github.io/mesto/ ссылка на страницу
 
