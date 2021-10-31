@@ -1,6 +1,6 @@
-.popup__conteiner{
-    position: relative;
-    margin: auto;
-    display: flex;
-    flex-direction:column;
+.popup__conteiner {
+  position: relative;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
 }

@@ -1,12 +1,12 @@
-.element__logo{
-    width: 22px;
-    height: 19px;
-    background-image: url(../../../images/Group.svg);
-    margin: auto 0;
-    border: 0;
-    background-color:#fff;
-    cursor: pointer;
+.element__logo {
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../images/Group.svg);
+  margin: auto 0;
+  border: 0;
+  background-color: #fff;
+  cursor: pointer;
 }
-.element__logo:hover{
-    opacity: 0.5;
+.element__logo:hover {
+  opacity: 0.5;
 }
