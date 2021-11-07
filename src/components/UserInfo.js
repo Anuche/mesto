@@ -1,7 +1,8 @@
 export class UserInfo {
-  constructor({ nameUsers, informUsers }) {
+  constructor({ nameUsers, informUsers, urlAvatar }) {
     this._nameUsers = nameUsers;
     this._informUsers = informUsers;
+    this._urlAvatar = urlAvatar;
   }
   getUserInfo() {
     const dataUser = {};
@@ -9,9 +10,13 @@ export class UserInfo {
     dataUser.job = this._informUsers.textContent;
     return dataUser;
   }
-
+  //Для имени пользователя и работы
   setUserInfo(data) {
-    this._nameUsers.textContent = data.fullname;
-    this._informUsers.textContent = data.profesion;
+    this._nameUsers.textContent = data.name;
+    this._informUsers.textContent = data.job;
+  }
+  //для аватара
+  setAvatarInfo(data) {
+    this._urlAvatar.src = data.avatarUser;
   }
 }

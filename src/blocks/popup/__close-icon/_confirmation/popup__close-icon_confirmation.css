@@ -1,0 +1,8 @@
+.popup__close-icon_confirmation {
+  height: 268px;
+}
+@media screen and (max-width: 600px) {
+  .popup__close-icon_confirmation {
+    height: 20px;
+  }
+}

@@ -21,18 +21,6 @@ const logo = new URL("../images/logo.svg", import.meta.url);
 const vectormini = new URL("../images/Vector-mini.svg", import.meta.url);
 const vector = new URL("../images/Vector.svg", import.meta.url);
 const imagedef = new URL("../images/image.jpg", import.meta.url);
-const image1 = new URL(
-  "../images/kirill-pershin-1088404-unsplash.jpg",
-  import.meta.url
-);
-const image2 = new URL(
-  "../images/kirill-pershin-1404681-unsplash.jpg",
-  import.meta.url
-);
-const image3 = new URL(
-  "../images/kirill-pershin-1556355-unsplash.jpg",
-  import.meta.url
-);
 
 export const whoIsTheGoat = [
   // меняем исходные пути на переменные
@@ -51,9 +39,6 @@ export const whoIsTheGoat = [
   { name: "vectormini", image: vectormini },
   { name: "imagedef", link: imagedef },
   { name: "vector", link: vector },
-  { name: "image1", link: image1 },
-  { name: "image2", link: image2 },
-  { name: "image3", link: image3 },
 ];
 
 export const dataConfig = {
@@ -71,6 +56,10 @@ export const dataTemplate = {
   elementTitle: ".element__title",
   elementLogo: ".element__logo",
   elementLogoActive: "element__logo_active",
+  elementOpen: "popup_opened",
+  elementDaleteButtonVisibile: "element__delete-button_visible",
+  elementDaleteButtonHidden: "element__delete-button_hidden",
+  elementNumberOfLikes: ".element__number-of-likes",
 };
 export const dataNamingConfig = {
   formFullName: ".form-profile",
@@ -85,10 +74,15 @@ export const dataNamingConfig = {
   closePlace: ".close-place",
   edit: ".popup_type_profile",
   place: ".popup_type_place",
+  avatar: ".popup_type_new-avatar",
+  confirmation: ".popup_type_confirmation",
   editButton: ".profile__edit-button",
   addButton: ".profile__add-button",
+  logoButton: ".profile__logo",
   profileFullName: ".profile__fullname",
+  profesionAvatar: ".profile__image",
   profileProfesion: ".profile__profesion",
+  profileImage: ".profile__image",
   popupImage: ".popup_type_image",
   popupImageTitle: ".popup__title_image",
   popupImageButton: ".popup__close-icon_image",
@@ -98,14 +92,29 @@ export const dataNamingConfig = {
   popupCloseIcon: "popup__close-icon",
   openPopup: "popup_opened",
   elementTamplate: "#template",
+  popupConfirmation: ".popup_type_confirmation",
 };
-// export const allPopups = document.querySelectorAll(dataNamingConfig.popups);
+
 export const edit = document.querySelector(dataNamingConfig.edit);
 export const place = document.querySelector(dataNamingConfig.place);
+export const avatar = document.querySelector(dataNamingConfig.avatar);
+export const confirmation = document.querySelector(
+  dataNamingConfig.confirmation
+);
 export const editButton = document.querySelector(dataNamingConfig.editButton);
 export const addButton = document.querySelector(dataNamingConfig.addButton);
+export const logoButton = document.querySelector(dataNamingConfig.logoButton);
+export const daleteButton = document.querySelector(
+  dataTemplate.elementDaleteButton
+);
+export const profileAvatar = document.querySelector(
+  dataNamingConfig.profesionAvatar
+);
 export const profileFullName = document.querySelector(
   dataNamingConfig.profileFullName
+);
+export const profilelogo = document.querySelector(
+  dataNamingConfig.profileImage
 );
 export const profileProfesion = document.querySelector(
   dataNamingConfig.profileProfesion
@@ -121,31 +130,3 @@ export const editProfesion = document.querySelector(
 export const template = document.querySelector(
   dataNamingConfig.elementTamplate
 ).content;
-
-//Карточки
-export const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
