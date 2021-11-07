@@ -12,11 +12,11 @@ export class UserInfo {
   }
   //Для имени пользователя и работы
   setUserInfo(data) {
-    this._nameUsers.textContent = data.name;
-    this._informUsers.textContent = data.job;
+    if (data.name) this._nameUsers.textContent = data.name;
+    if (data.job) this._informUsers.textContent = data.job;
   }
   //для аватара
   setAvatarInfo(data) {
-    this._urlAvatar.src = data.avatarUser;
+    if (data.avatarUser) this._urlAvatar.src = data.avatarUser;
   }
 }

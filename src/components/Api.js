@@ -8,9 +8,9 @@ export class Api {
     const options = {
       headers: this._headers,
     };
-    return fetch(this._url(query), options).then((res) =>
-      res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-    );
+    return fetch(this._url(query), options).then((res) => {
+      return this._responseServer(res);
+    });
   }
   // конструктор всех запросов кроме get
   _set(query, method, bode) {
@@ -19,9 +19,9 @@ export class Api {
       headers: this._headers,
       body: JSON.stringify(bode),
     };
-    return fetch(this._url(query), options).then((res) =>
-      res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-    );
+    return fetch(this._url(query), options).then((res) => {
+      return this._responseServer(res);
+    });
   }
   _url(query) {
     return `${this._adress}/${query}`;
@@ -55,7 +55,7 @@ export class Api {
       return this._responseServer(res);
     });
   }
-  //функция ответа от сервера для не компактных методов
+  //функция ответа от сервера
   _responseServer(res) {
     if (res.ok) {
       return res.json();

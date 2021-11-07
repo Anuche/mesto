@@ -144,6 +144,7 @@ const popupSubmitCard = new PopupWithForm(dataNamingConfig.place, (element) => {
     .addCard(element)
     .then((element) => {
       renderCard(element);
+      popupSubmitCard.close();
     })
     .catch((err) => console.log(`Не удалось сохранить карточку: ${err}`))
     .finally(() => {
@@ -173,7 +174,7 @@ const popupSubmitAvatar = new PopupWithForm(
       .then((element) => {
         userInfo.setAvatarInfo({ avatarUser: element.avatar });
         userId = element._id;
-        console.log(element);
+        popupSubmitAvatar.close();
       })
       .catch((err) => console.log(`Не удалось изменить аватар: ${err}`))
       .finally(() => {
@@ -202,6 +203,7 @@ const popupSubmit = new PopupWithForm(dataNamingConfig.edit, (element) => {
     .putchUserInfo(element)
     .then((element) => {
       userInfo.setUserInfo({ name: element.name, job: element.about });
+      popupSubmit.close();
     })
     .catch((err) => console.log(`Не удалось изменить имя и работу: ${err}`))
     .finally(() => {
