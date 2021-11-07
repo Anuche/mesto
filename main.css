@@ -43,7 +43,8 @@
 .form{display:flex;flex-direction:column}
 .profile__logo{background:transparent;background-color:transparent;border:0;box-sizing:border-box;padding:0}.profile__logo:hover{background-image:url(a086f758840ae814ecde.svg);background-position:50%;background-repeat:no-repeat;cursor:pointer}@media screen and (max-width:600px){.profile__logo{display:block;margin:0 auto 26px}}
 .popup__title_avatar{margin:34px auto 20px}@media screen and (max-width:600px){.popup__title_avatar{margin:26px auto 0}}
-.popup__close-icon_avatar{height:268px}
+.popup__close-icon_confirmation{height:268px}@media screen and (max-width:600px){.popup__close-icon_confirmation{height:20px}}
+.popup__close-icon_avatar{height:358px}@media screen and (max-width:600px){.popup__close-icon_avatar{height:20px}}
 .element__number-of-likes{font-family:Inter;font-size:13px;font-style:normal;font-weight:400;height:13px;line-height:16px;margin:0 auto;width:10px}
 .element__conteiner{height:35px}
 .element__delete-button_hidden{opacity:1;visibility:hidden}
